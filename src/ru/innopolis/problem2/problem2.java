@@ -14,13 +14,21 @@ class ChargerStation{
         iphone.chargeI();
     }
 }
-class iPhone{
-    void chargeI(){
+interface LightningPort{
+    void chargeI();
+}
+class iPhone implements LightningPort{
+    @Override
+    public void chargeI(){
         System.out.println("The iphone is charged");
     }
 }
-class Android{
-    void chargeA(){
+interface USBPort{
+    void chargeA();
+}
+class Android implements USBPort{
+    @Override
+    public void chargeA(){
         System.out.println("The android is charged");
     }
 }
@@ -29,7 +37,8 @@ class AndroidAdapter extends iPhone{
     AndroidAdapter ( Android android){
         this.android= android;
     }
-    void chargeI (){
+    @Override
+    public void chargeI (){
         android.chargeA();
     }
 }
