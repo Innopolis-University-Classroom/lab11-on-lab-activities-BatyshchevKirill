@@ -1,45 +1,43 @@
 public class problem2 {
     public static void main(String[] args) {
         ChargerStation station = new ChargerStation();
-        iPhone iPhone = new iPhone();
+        Iphone iPhone = new Iphone();
         station.chargeByLightning(iPhone);
-        Android android = new Android();
-        AndroidAdapter adapter= new AndroidAdapter(android);
+        AndroidAdapter adapter= new AndroidAdapter();
         station.chargeByLightning(adapter);
     }
 }
-
-class ChargerStation{
-    void chargeByLightning(iPhone iphone ){
-        iphone.chargeI();
-    }
-}
 interface LightningPort{
-    void chargeI();
-}
-class iPhone implements LightningPort{
-    @Override
-    public void chargeI(){
-        System.out.println("The iphone is charged");
-    }
+    void chargeIphone();
 }
 interface USBPort{
-    void chargeA();
+    void chargeAndroid();
 }
 class Android implements USBPort{
     @Override
-    public void chargeA(){
+    public void chargeAndroid() {
         System.out.println("The android is charged");
     }
 }
-class AndroidAdapter extends iPhone{
-    private Android android;
-    AndroidAdapter ( Android android){
-        this.android= android;
+class AndroidAdapter implements LightningPort{
+    Android android;
+    public AndroidAdapter(){
+        android = new Android();
     }
+
     @Override
-    public void chargeI (){
-        android.chargeA();
+    public void chargeIphone() {
+        android.chargeAndroid();
     }
 }
-
+class Iphone implements LightningPort{
+    @Override
+    public void chargeIphone() {
+        System.out.println("The iphone is charged");
+    }
+}
+class ChargerStation{
+    void chargeByLightning(LightningPort iphone){
+        iphone.chargeIphone();
+    }
+}
